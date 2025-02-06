@@ -1,6 +1,6 @@
 ---
 - name: Ping a host
-  hosts: TAMS_SERVER
+  hosts: all
   gather_facts: false 
   tasks:
     - name: Ping the host
