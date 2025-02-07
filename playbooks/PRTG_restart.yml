@@ -5,15 +5,20 @@
   tasks:
     - name: Execute PowerShell script
       ansible.windows.win_shell: |
-        powershell.exe -File D:\PRTG_Recycle\PRTG_Recycle.ps1 >  D:\PRTG_Recycle\output.txt 2>&1
+        powershell.exe -File D:\PRTG_Recycle\PRTG_Recycle.ps1 > D:\PRTG_Recycle\output.txt 2>&1
       register: script_output
       ignore_errors: yes
-      
-    - name: Read the output file
-      ansible.windows.win_slurp:
+
+    - name: Fetch the output file
+      ansible.windows.win_fetch:
         src: D:\PRTG_Recycle\output.txt
-      register: output_file
+        dest: /tmp/output.txt
+        flat: yes
 
     - name: Display script output from file
+      command: cat /tmp/output.txt
+      register: file_content
+
+    - name: Show fetched content
       debug:
-        msg: "{{ output_file.content | b64decode }}"
+        msg: "{{ file_content.stdout }}"
