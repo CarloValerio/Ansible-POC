@@ -6,10 +6,9 @@
     - name: Run PowerShell Script
       win_shell: |
         D:\PRTG_Recycle\PRTG_Recycle.ps1
+      register: script_output
+      failed_when: script_output.failed and "'ParseError' not in script_output.msg" 
+      
     - name: Debug output
       debug:
         var: script_output.stdout
-
-    - name: Debug error
-      debug:
-        var: script_output.stderr
