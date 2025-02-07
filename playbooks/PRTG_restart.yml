@@ -7,4 +7,4 @@
       win_shell: |
         # Path to the PowerShell script
         D:\PRTG_Recycle\PRTG_Recycle.ps1
-  when: "{{ environment }}" == 'DEV'
+  when: environment == 'DEV'
