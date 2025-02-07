@@ -4,8 +4,8 @@
   gather_facts: no
   tasks:
     - name: Run PowerShell Script
-      win_shell: powershell.exe -ExecutionPolicy Bypass -File "D:\PRTG_Recycle\PRTG_Recycle.ps1"
-
+      win_shell: |
+        D:\PRTG_Recycle\PRTG_Recycle.ps1
     - name: Debug output
       debug:
         var: script_output.stdout
