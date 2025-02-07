@@ -3,20 +3,5 @@
   hosts: PRTG_DEV
   gather_facts: no
   tasks:
-    - name: Execute PowerShell script and capture output
-      ansible.windows.win_shell: |
-        if (Test-Path -Path D:\PRTG_Recycle\output.txt) {
-          Remove-Item -Path D:\PRTG_Recycle\output.txt
-        }
-        powershell.exe -ExecutionPolicy Bypass -File D:\PRTG_Recycle\PRTG_Recycle.ps1 > D:\PRTG_Recycle\output.txt 2>&1
-        if (Test-Path -Path D:\PRTG_Recycle\output.txt) {
-          Get-Content D:\PRTG_Recycle\output.txt
-        } else {
-          Write-Output "Output file not created."
-        }
-      register: script_output
-      changed_when: false
-
-    - name: Display script output
-      debug:
-        msg: "{{ script_output.stdout_lines | default(['No output captured']) }}"
+    - name: Run PowerShell Script
+      win_command: powershell.exe -ExecutionPolicy Bypass -File "D:\PRTG_Recycle\PRTG_Recycle.ps1"
