@@ -11,3 +11,7 @@
     - name: Display script output
       debug:
         var: script_output.stdout_lines
+        
+    - name: Display script stderr
+      debug:
+        var: script_output.stderr_lines
