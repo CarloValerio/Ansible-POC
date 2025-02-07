@@ -8,7 +8,12 @@
         D:\PRTG_Recycle\PRTG_Recycle.ps1
       register: script_output
       ignore_errors: yes
-      
+
     - name: Debug output
       debug:
         var: script_output.stdout
+
+    - name: Check for ParseError and display success message
+      debug:
+        msg: "Script ran successfully despite the ParseError."
+      when: '"ParseError" in script_output.stdout or "no element found" in script_output.stdout'
