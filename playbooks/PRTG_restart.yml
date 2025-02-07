@@ -1,23 +1,8 @@
 ---
 - name: Restart PRTG probe
   hosts: PRTG_DEV
-  gather_facts: no  
+  gather_facts: no
   tasks:
-    - name: Execute PowerShell script and capture output
-      ansible.windows.win_shell: |
-        powershell.exe -File D:\PRTG_Recycle\PRTG_Recycle.ps1 > D:\PRTG_Recycle\output.txt 2>&1
-        Get-Content D:\PRTG_Recycle\output.txt
-      register: script_output
-      ignore_errors: yes
-
-    - name: Display script output
-      debug:
-        msg: "{{ script_output.stdout_lines }}"
-        
-    - name: Verify script file exists
-      ansible.windows.win_shell: Test-Path D:\PRTG_Recycle\PRTG_Recycle.ps1
-      register: file_exists
-
-    - name: Display file existence
-      debug:
-        msg: "Script file exists: {{ file_exists.stdout }}"
+    - name: Run PowerShell Script
+      win_shell: |
+        & "D:\PRTG_Recycle\PRTG_Recycle.ps1"
