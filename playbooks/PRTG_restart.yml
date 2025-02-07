@@ -1,20 +1,13 @@
 ---
 - name: Restart PRTG probe
-  hosts: all
+  hosts: PRTG DEV
   gather_facts: yes
   tasks:
-    - name: Debug environment variable
-      debug:
-        msg: "Environment is set to {{ environment }}"
-
     - name: Execute PowerShell script
       win_shell: |
-        # Path to the PowerShell script
         D:\PRTG_Recycle\PRTG_Recycle.ps1
       register: script_output
-      when: environment == 'DEV'
-
+      
     - name: Display script output
       debug:
         var: script_output.stdout_lines
-      when: environment == 'DEV'
