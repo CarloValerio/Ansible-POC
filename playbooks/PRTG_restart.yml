@@ -1,6 +1,6 @@
 ---
 - name: Restart PRTG probe
-  hosts: PRTG DEV
+  hosts: PRTG_DEV
   gather_facts: yes
   tasks:
     - name: Execute PowerShell script
