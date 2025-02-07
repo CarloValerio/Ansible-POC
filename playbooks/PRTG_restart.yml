@@ -16,4 +16,9 @@
     - name: Check for ParseError and display success message
       debug:
         msg: "Script ran successfully despite the ParseError."
-      when: '"ParseError" in script_output.stdout or "no element found" in script_output.stdout'
+      when: script_output.msg is defined and ("ParseError" in script_output.msg or "no element found" in script_output.msg)
+
+    - name: Fail task if no ParseError is found
+      fail:
+        msg: "Unexpected success: The script should have produced a ParseError."
+      when: script_output.msg is not defined or not ("ParseError" in script_output.msg or "no element found" in script_output.msg)
