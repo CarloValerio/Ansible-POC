@@ -1,0 +1,9 @@
+---
+- name: Restart PRTG probe
+  hosts: "{{ 10.101.216.206 }}"
+  gather_facts: no
+  tasks:
+    - name: Execute PowerShell script
+      win_shell: |
+        # Path to the PowerShell script
+        D:\PRTG_Recycle\PRTG_Recycle.ps1
