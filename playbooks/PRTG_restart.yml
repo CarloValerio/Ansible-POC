@@ -5,11 +5,14 @@
   tasks:
     - name: Execute PowerShell script
       win_shell: |
-        Write-Host "Starting script execution"
         D:\PRTG_Recycle\PRTG_Recycle.ps1
-        Write-Host "Script execution completed"
       register: script_output
+      ignore_errors: yes
       
     - name: Display script output
       debug:
         var: script_output.stdout_lines
+        
+    - name: Display script stderr
+      debug:
+        var: script_output.stderr_lines
