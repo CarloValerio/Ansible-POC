@@ -4,15 +4,10 @@
   gather_facts: yes
   tasks:
     - name: Execute PowerShell script
-      win_shell: |
+      win_command: |
         D:\PRTG_Recycle\PRTG_Recycle.ps1
       register: script_output
-      ignore_errors: yes
       
     - name: Display script output
       debug:
         var: script_output.stdout_lines
-        
-    - name: Display script stderr
-      debug:
-        var: script_output.stderr_lines
